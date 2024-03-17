@@ -20,14 +20,14 @@ class TodoList extends Component
         $this->reset("name");
         session()->flash("success", __("submitted"));
     }
+    public function delete(Todo $todo){
+        $todo->delete();
+    }
     public function render()
     {
 
-        $todos = Todo::query()
-        ->where('name', 'like', "%{$this->search}%")
-        ->latest()
-        ->paginate(3);
-
-    return view('livewire.todo-list', compact('todos'));
+        return view('livewire.todo-list', [
+            'todos' => Todo::latest()->where('name', 'like', "%{$this->search}%")->paginate(3),
+        ]);
     }
 }
