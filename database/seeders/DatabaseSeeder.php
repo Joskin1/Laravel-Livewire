@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Todo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -22,5 +23,6 @@ class DatabaseSeeder extends Seeder
        User::factory()->create([
         'name' => 'Akin Joseph'
        ]);
+    //    Todo::factory()->create([
     }
 }
