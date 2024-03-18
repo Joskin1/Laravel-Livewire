@@ -20,8 +20,16 @@ class TodoList extends Component
         $this->reset("name");
         session()->flash("success", __("submitted"));
     }
-    public function delete(Todo $todo){
+    public function delete($todoID)
+    {
+        $todo = Todo::find( $todoID );
         $todo->delete();
+    }
+    public function toggle($todoID)
+    {
+        $todo = Todo::find( $todoID );
+        $todo->completed = !$todo->completed;
+        $todo->save();
     }
     public function render()
     {
