@@ -10,9 +10,12 @@ use Livewire\WithPagination;
 class TodoList extends Component
 {
     use WithPagination;
-    #[Rule("required")]
+    #[Rule("required|min:3|max:50")]
     public $name;
     public $search;
+    public $editingTodoID;
+    #[Rule("required|min:3|max:50")]
+    public $editingTodoName;
     public function create()
     {
         $attributes = $this->validateOnly("name");
@@ -24,6 +27,22 @@ class TodoList extends Component
     {
         $todo = Todo::find( $todoID );
         $todo->delete();
+    }
+    public function edit($todoID)
+    {
+        $this->editingTodoID = $todoID;
+        $this->editingTodoName = Todo::find($todoID)->name;
+    }
+    public function update(){
+        $this->validateOnly("editingTodoName");
+        Todo::find($this->editingTodoID)->update([
+            "name"=> $this->editingTodoName
+        ]);
+        $this->cancelEdit();
+    }
+    public function cancelEdit()
+    {
+        $this->reset('editingTodoID', 'editingTodoName');
     }
     public function toggle($todoID)
     {
