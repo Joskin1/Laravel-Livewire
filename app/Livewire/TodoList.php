@@ -22,21 +22,26 @@ class TodoList extends Component
         Todo::create($attributes);
         $this->reset("name");
         session()->flash("success", __("submitted"));
+        $this->resetPage();
     }
     public function delete($todoID)
     {
-        $todo = Todo::find( $todoID );
-        $todo->delete();
+        try {
+            Todo::findOrFail($todoID)->delete();
+        } catch (\Exception $e) {
+            session()->flash("error", 'Failed to delete Todo');
+        }
     }
     public function edit($todoID)
     {
         $this->editingTodoID = $todoID;
         $this->editingTodoName = Todo::find($todoID)->name;
     }
-    public function update(){
+    public function update()
+    {
         $this->validateOnly("editingTodoName");
         Todo::find($this->editingTodoID)->update([
-            "name"=> $this->editingTodoName
+            "name" => $this->editingTodoName
         ]);
         $this->cancelEdit();
     }
@@ -46,7 +51,7 @@ class TodoList extends Component
     }
     public function toggle($todoID)
     {
-        $todo = Todo::find( $todoID );
+        $todo = Todo::find($todoID);
         $todo->completed = !$todo->completed;
         $todo->save();
     }
