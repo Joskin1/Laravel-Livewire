@@ -39,17 +39,13 @@
         <div wire:loading.delay>
             <span class="text-green-500">Sending.....</span>
         </div>
+        <div >
+            <button @click="$dispatch('user-created')"  class="block mt-3 px-4 py-2 bg-teal-500 text-white font-semibold rounded hover:bg-teal-600" type="button">Reload List</button>
+        </div>
         <div wire:loading.class.remove="bg-indigo-500" wire:loading.attr="disable">
             <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Create User</button>
         </div>
     </form>
     <hr class="my-6">
-    <div>
-        @foreach ($users as $user)
-            <div class="mb-4">
-                <h3 class="text-lg font-bold">{{ $user->name }}</h3>
-            </div>
-        @endforeach
-        {{ $users->links() }}
-    </div>
+
 </div>

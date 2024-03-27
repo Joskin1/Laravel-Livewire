@@ -7,7 +7,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class Clicker extends Component
+class RegisterForm extends Component
 {
     use WithFileUploads;
     use WithPagination;
@@ -37,17 +37,20 @@ class Clicker extends Component
             $validated['image'] = $this->image->store('uploads', 'public');
         }
 
-        User::create($validated);
+        $user = User::create($validated);
 
         $this->reset(['name', 'email', 'password', 'image']);
 
         session()->flash('success', 'Registration is successful');
     }
+    public function ReloadList(){
+        $this->dispatch('user-created');
+    }
 
     public function render()
     {
-        $users = User::paginate(2);
 
-        return view('livewire.clicker', compact('users'));
+
+        return view('livewire.register-form');
     }
 }
