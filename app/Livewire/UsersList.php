@@ -11,12 +11,14 @@ class UsersList extends Component
 {
     use WithPagination;
     #[On("user-created")]
-    public function updateList($user =  null){
+    public function placeholder(){
+        return view("placeholder");
     }
     public function render()
     {
         return view('livewire.users-list', [
-            'users' => User::latest()->paginate(5),
+            'users' => User::latest()->paginate(10),
+            'count' => User::count(),
         ]);
     }
 }
