@@ -37,13 +37,16 @@ Clone this repository to your local machine to follow along with my learning pro
 
 ```bash
 git clone https://github.com/joskin1/laravel-Livewire.git
+```
 
-Resources
+## Resources
 LiveWire Documentation
 Laravel Documentation
 Livewire Examples
 
-Contributing
+
+
+## Contributing
 Feel free to help me out in my learning process by suggesting improvements, corrections, or additions.
 
 
